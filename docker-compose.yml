@@ -1,10 +1,12 @@
 web:
-  build: .
-  ports:
-   - "5000:5000"
+  extends:
+    file: common.yml
+    service: web
   volumes:
-   - .:/code
+    - .:/code
   links:
-   - redis
+    - redis
+  environment:
+    - REDIS_HOST=redis
 redis:
   image: redis
