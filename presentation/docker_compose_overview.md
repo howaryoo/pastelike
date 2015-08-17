@@ -1,7 +1,7 @@
 
 # docker-compose: overview
 
-docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" align="left" height="48" width="48" ></a>
+docker-compose formerly AKA fig  <a><img src="/home/ah/projects/pastelike/presentation/logo.png" align="left" height="48" width="48" ></a>
 
     Compose is great for development environments, staging servers, and CI.
     We don’t recommend that you use it in production yet.
@@ -10,7 +10,7 @@ docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" al
 
 * engine
 * machine
-* **compose**: "Define multi container applications" <a><img src="https://www.docker.com/sites/default/files/compose_2.svg" align="left" height="48" width="48" ></a> 
+* **compose**: "Define multi container applications" <a><img src="/home/ah/projects/pastelike/presentation/compose_2.svg" align="left" height="48" width="48" ></a> 
 * registry
 * swarm
 * ...
@@ -32,7 +32,7 @@ docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" al
 
 ## docker vs VM :  lightweight virtual machine ++
 
-<a><img src="file:///home/ah/projects/pastelike/presentation/vm_vs_docker.png" align="left" height="400" width="700" ></a>
+<a><img src="/home/ah/projects/pastelike/presentation/vm_vs_docker.png" align="left" height="400" width="700" ></a>
 
 
 ## The contained processes are running on the Host
@@ -48,7 +48,7 @@ docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" al
 
 ## It provides the infrastructure for running apps as micro-services
 
-<a><img src="http://www.jayway.com/wp-content/uploads/2015/03/docker-interactions.png" align="left" height="480" width="640" ></a>
+<a><img src="/home/ah/projects/pastelike/presentation/docker-interactions.png" align="left" height="480" width="640" ></a>
 
 # Presenter Notes
     * Host, the machine that is running the containers.
@@ -299,10 +299,10 @@ Project files cannot be watched (are they under network mount?)api.vfs.impl.loca
 
 # Thank you!
 
-## ![cyberint](http://static1.squarespace.com/static/55353559e4b099684bf2593a/t/55474b00e4b0ca8061e89faa/1436717678792/?format=1500w)
+## ![cyberint](/home/ah/projects/pastelike/presentation/cint.png)
 
 # presentation created with: 
 
 * landslide: ![landslide](/home/ah/projects/pastelike/presentation/landslide_logo.png)
 
-* plantUml: ![plantUml](http://plantuml.sourceforge.net/logoc.png)
+* plantUml: ![plantUml](/home/ah/projects/pastelike/presentation/plantuml_logo.png)
