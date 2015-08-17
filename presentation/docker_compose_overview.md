@@ -32,7 +32,7 @@ docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" al
 
 ## docker vs VM :  lightweight virtual machine ++
 
-<a><img src="file:///home/ah/projects/presentations/vm_vs_docker.png" align="left" height="400" width="700" ></a>
+<a><img src="file:///home/ah/projects/pastelike/presentation/vm_vs_docker.png" align="left" height="400" width="700" ></a>
 
 
 ## The contained processes are running on the Host
@@ -207,7 +207,7 @@ no need to build it manually: we are using the official redis image as is
 
 # add more services
 
-![component diagram](/home/ah/projects/presentations/paste_like_site_component_diagram.png)
+![component diagram](/home/ah/projects/pastelike/presentation/paste_like_site_component_diagram.png)
 
 .notes: check out the grid console: http://hub:4444/grid/console
 
@@ -279,7 +279,7 @@ no need to build it manually: we are using the official redis image as is
 
 maybe a bit slower because of the mounted volumes 
 
-![pycharm mount](/home/ah/projects/presentations/slow_sync.png)
+![pycharm mount](/home/ah/projects/pastelike/presentation/slow_sync.png)
 
 Project files cannot be watched (are they under network mount?)api.vfs.impl.local.FileWatcher - Project files cannot be watched (are they under network mount?)
 
@@ -303,6 +303,6 @@ Project files cannot be watched (are they under network mount?)api.vfs.impl.loca
 
 # presentation created with: 
 
-* landslide: ![landslide](/home/ah/Pictures/landslide_logo.png)
+* landslide: ![landslide](/home/ah/projects/pastelike/presentation/landslide_logo.png)
 
 * plantUml: ![plantUml](http://plantuml.sourceforge.net/logoc.png)
