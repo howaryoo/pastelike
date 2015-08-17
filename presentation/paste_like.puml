@@ -1,0 +1,22 @@
+@startuml
+
+title Component diagram
+left to right direction
+
+database "Mongo" as mongo
+database "Redis" as redis
+
+note right of [nginx] : VIRTUAL_HOST=learn.compose.com
+
+[nginx] - [Web client]
+[Web client] - mongo
+[Web client] - redis
+
+node "Selenium" {
+    [Selenium Hub] - [Selenium Node (Firefox)]
+}
+
+note right of [Selenium Node (Firefox)] : easy to scale! docker-compose scale firefox=15
+
+
+@enduml

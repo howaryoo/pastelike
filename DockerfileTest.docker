@@ -1,0 +1,6 @@
+FROM pastelike_web
+
+WORKDIR /code
+
+# install pip test requirements
+RUN pip install -r /code/test-requirements.txt

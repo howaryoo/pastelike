@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>docker-compose: overview</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="../../../anaconda/lib/python2.7/site-packages/landslide/themes/default/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="../../../anaconda/lib/python2.7/site-packages/landslide/themes/default/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="../../../anaconda/lib/python2.7/site-packages/landslide/themes/default/js/slides.js"></script>
+    
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-1">
+          <div class="inner">
+            
+            <header><h1>docker-compose: overview</h1></header>
+            
+            
+            <section><p>docker-compose formerly AKA fig  <a><img src="http://www.fig.sh/img/logo.png" align="left" height="48" width="48" ></a></p>
+<pre><code>Compose is great for development environments, staging servers, and CI.
+We don’t recommend that you use it in production yet.
+</code></pre>
+<h2>docker-compose in the Docker roadmap</h2>
+<ul>
+<li>engine</li>
+<li>machine</li>
+<li><strong>compose</strong>: "Define multi container applications" <a><img src="https://www.docker.com/sites/default/files/compose_2.svg" align="left" height="48" width="48" ></a> </li>
+<li>registry</li>
+<li>swarm</li>
+<li>...</li>
+</ul>
+<p><a href="http://www.jayway.com/2015/03/21/a-not-very-short-introduction-to-docker/">Great docker intro from jayway</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <pre><code>quick polls
+* who knows docker well?
+* docker-compose?
+* docker in dev workflow?
+* docker in production?
+</code></pre>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-2">
+          <div class="inner">
+            
+            <header><h1>docker primer 1/3 - What is it?</h1></header>
+            
+            
+            <section><h2>docker vs VM :  lightweight virtual machine ++</h2>
+<p><a><img src="file:///home/ah/projects/presentations/vm_vs_docker.png" align="left" height="400" width="700" ></a></p>
+<h2>The contained processes are running on the Host</h2>
+<pre><code>$pgrep -af app.py
+21046 /usr/local/bin/python app.py
+...
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-3">
+          <div class="inner">
+            
+            <header><h1>docker primer 2/3 - so what ?</h1></header>
+            
+            
+            <section><h2>It provides the infrastructure for running apps as micro-services</h2>
+<p><a><img src="http://www.jayway.com/wp-content/uploads/2015/03/docker-interactions.png" align="left" height="480" width="640" ></a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <pre><code>* Host, the machine that is running the containers.
+* Image, a hierarchy of files, with meta-data for how to run a container.
+* Container, a contained running process, started from an image.
+* Registry, a repository of images.
+* Volume, storage outside the container.
+* Dockerfile, a script for creating images.
+</code></pre>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-4">
+          <div class="inner">
+            
+            <header><h1>docker primer 3/3 - how ?</h1></header>
+            
+            
+            <section><h2>concepts</h2>
+<ul>
+<li>Host, the machine that is running the containers.</li>
+<li>Image, a hierarchy of files, with meta-data for how to run a container.</li>
+<li>Container, a contained running process, started from an image.</li>
+<li>Registry, a repository of images.</li>
+<li>Volume, storage outside the container.</li>
+<li>Dockerfile, a script for creating images.</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code slide-5">
+          <div class="inner">
+            
+            <header><h1>docker hello world 1/2</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1 </span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="lineno"> 2 </span><span class="kn">from</span> <span class="nn">redis</span> <span class="kn">import</span> <span class="n">Redis</span>
+<span class="lineno"> 3 </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="lineno"> 4 </span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="lineno"> 5 </span><span class="n">redis</span> <span class="o">=</span> <span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&#39;redis&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">)</span>
+<span class="lineno"> 6 </span>
+<span class="lineno"> 7 </span><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="lineno"> 8 </span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+<span class="lineno"> 9 </span>    <span class="n">redis</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="s">&#39;hits&#39;</span><span class="p">)</span>
+<span class="lineno">10 </span>    <span class="k">return</span> <span class="s">&#39;Hello World! I have been seen </span><span class="si">%s</span><span class="s"> times.&#39;</span> <span class="o">%</span> <span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;hits&#39;</span><span class="p">)</span>
+<span class="lineno">11 </span>
+<span class="lineno">12 </span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="lineno">13 </span>    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+<h2>app Dockerfile</h2>
+<pre><code>FROM python:2.7
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD python app.py
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-6">
+          <div class="inner">
+            
+            <header><h1>docker hello world 2/2</h1></header>
+            
+            
+            <section><pre><code>$git checkout v0.1
+</code></pre>
+<h2>build app container</h2>
+<pre><code>$ docker build -t web .
+</code></pre>
+<h2>run redis container</h2>
+<p>no need to build it manually: we are using the official redis image as is</p>
+<pre><code>$ docker run -d --name=redis_1 redis
+</code></pre>
+<h2>run web app container with a link to redis container</h2>
+<pre><code>$docker run -p 5000:5000 --link redis_1:redis web                                                                                                                                               
+Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+...
+</code></pre>
+<h2>interactive test</h2>
+<h2>stop services and clean up</h2>
+<pre><code>docker rm $(docker ps -q -f status=exited)
+docker rmi -f $(docker images -f dangling=true -q)
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <pre><code>what we learned: 
+* run container as daemon
+* map ports
+* link containers
+* clean up
+</code></pre>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-7">
+          <div class="inner">
+            
+            <header><h1>compose hello world</h1></header>
+            
+            
+            <section><pre><code>$git checkout v0.2
+</code></pre>
+<h2>compose file docker-compose.yml</h2>
+<pre><code>web:
+  build: .
+  ports:
+   - "5000:5000"
+  volumes:
+   - .:/code
+  links:
+   - redis
+redis:
+  image: redis
+</code></pre>
+<h2>Same example started with compose</h2>
+<pre><code>$ docker-compose up
+</code></pre>
+<h2>Volume mapped from host to docker container</h2></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <pre><code>exercise: since volume mapped from host, change source and check effects
+</code></pre>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-8">
+          <div class="inner">
+            
+            <header><h1>hello world using <em>extends</em></h1></header>
+            
+            
+            <section><pre><code>$git checkout v0.3
+</code></pre>
+<h2>common.yml</h2>
+<pre><code>web:
+  build: .
+  ports:
+    - "5000:5000"
+</code></pre>
+<h2>production.yml</h2>
+<pre><code>web:
+  extends:
+    file: common.yml
+    service: web
+  environment:
+    - REDIS_HOST=redis-production.example.com
+</code></pre>
+<h2>start service</h2>
+<pre><code>$docker-compose -f production.yml build web
+$docker-compose -f production.yml up
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <pre><code>why did we use a build step ?
+</code></pre>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_notes slide-9">
+          <div class="inner">
+            
+            <header><h1>add more services</h1></header>
+            
+            
+            <section><p><img alt="component diagram" src="/home/ah/projects/presentations/paste_like_site_component_diagram.png" /></p>
+<p class="notes">check out the grid console: http://hub:4444/grid/console</p>
+<p class="notes">maybe use a more relevant example <a href="http://docs.mongodb.org/ecosystem/tutorial/write-a-tumblelog-application-with-flask-mongoengine/">Reference: write-a-tumblelog-application-with-flask-mongoengine</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-10">
+          <div class="inner">
+            
+            <header><h1>development workflow - TDD</h1></header>
+            
+            
+            <section><pre><code>$git checkout v0.4
+</code></pre>
+<h2>test service</h2>
+<pre><code>test:
+  build: .
+  dockerfile: DockerfileTest.docker
+  volumes:
+    - .:/code
+  entrypoint: ["make"]
+  command: ["test"]
+  links:
+    - web
+    - hub
+    - firefox
+</code></pre>
+<h2>usage</h2>
+<pre><code>docker-compose run test
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-11">
+          <div class="inner">
+            
+            <header><h1>CI - CD workflow</h1></header>
+            
+            
+            <section><h2>CI</h2>
+<h3>run the test service above</h3>
+<h2>CD</h2>
+<h3>if successful push to your private repository</h3>
+<h2>how about the developer work environment ?</h2>
+<h3>Can I use my favorite IDE ?</h3></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-12">
+          <div class="inner">
+            
+            <header><h1>GUI applications</h1></header>
+            
+            
+            <section><h2>pycharm</h2>
+<pre><code>pycharm:
+  build: .
+  dockerfile: DockerfileDeveloper.docker
+  tty: true
+  entrypoint: ["/home/developer/bin/pycharm.sh"]
+  environment:
+    DISPLAY:
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+    - ~:/home/developer
+  links:
+    - redis
+    - mongo
+    - hub
+    - firefox
+</code></pre>
+<h2>limitations</h2>
+<p>maybe a bit slower because of the mounted volumes </p>
+<p><img alt="pycharm mount" src="/home/ah/projects/presentations/slow_sync.png" /></p>
+<p>Project files cannot be watched (are they under network mount?)api.vfs.impl.local.FileWatcher - Project files cannot be watched (are they under network mount?)</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-13">
+          <div class="inner">
+            
+            <header><h1>Upcoming Features</h1></header>
+            
+            
+            <section><pre><code>The experimental build of Docker has an entirely new networking system, 
+which enables secure communication between containers on multiple hosts. 
+In combination with Docker Swarm and Docker Compose, you can now run 
+multi-container apps on multi-host clusters with the same tooling 
+and configuration format you use to develop them locally.
+</code></pre>
+<p><a href="https://github.com/aanand/fig/blob/16213dd49304b1d3bef228dda9ea4545cfdd87a5/experimental/compose_swarm_networking.md">Experimental docker</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: docker_compose_overview.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-14">
+          <div class="inner">
+            
+            <header><h1>Thank you!</h1></header>
+            
+            
+            <section><h2><img alt="cyberint" src="http://static1.squarespace.com/static/55353559e4b099684bf2593a/t/55474b00e4b0ca8061e89faa/1436717678792/?format=1500w" /></h2>
+<h1>presentation created with:</h1>
+<ul>
+<li>
+<p>landslide: <img alt="landslide" src="/home/ah/Pictures/landslide_logo.png" /></p>
+</li>
+<li>
+<p>plantUml: <img alt="plantUml" src="http://plantuml.sourceforge.net/logoc.png" /></p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="docker_compose_overview.md">docker_compose_overview.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">docker-compose: overview</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">docker primer 1/3 - What is it?</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">docker primer 2/3 - so what ?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">docker primer 3/3 - how ?</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">docker hello world 1/2</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">docker hello world 2/2</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">compose hello world</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">hello world using <em>extends</em></a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">add more services</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">development workflow - TDD</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">CI - CD workflow</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">GUI applications</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Upcoming Features</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Thank you!</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>

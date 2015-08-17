@@ -1,3 +1,12 @@
+rproxy:
+  image: jwilder/nginx-proxy
+  ports:
+    - "80:80"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+  links:
+    - web
+
 web:
   extends:
     file: common.yml
@@ -6,7 +15,63 @@ web:
     - .:/code
   links:
     - redis
+    - mongo
   environment:
     - REDIS_HOST=redis
+    - VIRTUAL_HOST=learn.compose.com
+
 redis:
   image: redis
+
+mongo:
+  image: mongo
+  ports:
+    - "27071:27017"
+
+hub:
+  image: selenium/hub
+  ports:
+    - "4444:4444"
+
+firefox:
+  image: selenium/node-firefox
+  links:
+    - hub
+
+chrome:
+  image: selenium/node-chrome
+  links:
+    - hub
+
+# dev/test services
+
+test:
+  build: .
+  dockerfile: DockerfileTest.docker
+  volumes:
+    - .:/code
+  entrypoint: ["make"]
+  command: ["test"]
+  links:
+    - redis
+    - mongo
+    - hub
+    - firefox
+
+
+pycharm:
+  build: .
+  dockerfile: DockerfileDeveloper.docker
+  tty: true
+  entrypoint: ["/home/developer/bin/pycharm.sh"]
+  environment:
+    DISPLAY:
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+    - ~:/home/developer
+  links:
+    - redis
+    - mongo
+    - hub
+    - firefox
+
