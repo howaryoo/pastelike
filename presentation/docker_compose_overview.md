@@ -3,27 +3,28 @@
 
 docker-compose formerly AKA fig  <a><img src="/home/ah/projects/pastelike/presentation/logo.png" align="left" height="48" width="48" ></a>
 
-    Compose is great for development environments, staging servers, and CI.
-    We don’t recommend that you use it in production yet.
-
 ## docker-compose in the Docker roadmap
 
-* engine
-* machine
-* **compose**: "Define multi container applications" <a><img src="/home/ah/projects/pastelike/presentation/compose_2.svg" align="left" height="48" width="48" ></a> 
-* registry
-* swarm
+* engine: or “Docker” creates and runs Docker containers
+* machine: automates container provisioning on your network or in the cloud.
+* **compose**: "Define multi container applications" (container orchestration)  
+* registry: provides open source Docker image distribution
+* swarm: You use Docker Swarm to host and schedule a cluster of Docker containers. 
 * ...
 
+## Warning
+
+    Compose is great for development environments, staging servers, and CI.
+    We don’t recommend that you use it in production yet.
 
 [Great docker intro from jayway](http://www.jayway.com/2015/03/21/a-not-very-short-introduction-to-docker/)
 
 # Presenter Notes
+    LOOK at the audience!
     quick polls
     * who knows docker well?
     * docker-compose?
-    * docker in dev workflow?
-    * docker in production?
+    * what IDE do you use?
 
 ---
 
@@ -46,7 +47,7 @@ docker-compose formerly AKA fig  <a><img src="/home/ah/projects/pastelike/presen
 
 # docker primer 2/3 - so what ?
 
-## It provides the infrastructure for running apps as micro-services
+## It provides the infrastructure for running apps as a set of micro-services
 
 <a><img src="/home/ah/projects/pastelike/presentation/docker-interactions.png" align="left" height="480" width="640" ></a>
 
@@ -103,6 +104,20 @@ docker-compose formerly AKA fig  <a><img src="/home/ah/projects/pastelike/presen
     RUN pip install -r requirements.txt
     CMD python app.py
 
+# Presenter Notes
+    Explain Flask
+    Explain Dockerfile:
+    FROM base image fetched by default from the official docker image repository 
+        (docker hub)
+    RUN: The RUN instruction will execute any commands in a new layer on top of 
+        the current image and commit the results.
+    The WORKDIR instruction sets the working directory for any RUN, CMD, ENTRYPOINT, 
+        COPY and ADD instructions that follow it in the Dockerfile.
+    The main purpose of a CMD (Only one) is to provide defaults for 
+        an executing container. These defaults can include an executable,
+        or they can omit the executable, in which case you must specify
+        an ENTRYPOINT instruction as well.
+    
 ---
 
 # docker hello world 2/2
@@ -209,9 +224,6 @@ no need to build it manually: we are using the official redis image as is
 
 ![component diagram](/home/ah/projects/pastelike/presentation/paste_like_site_component_diagram.png)
 
-.notes: check out the grid console: http://hub:4444/grid/console
-
-.notes: maybe use a more relevant example [Reference: write-a-tumblelog-application-with-flask-mongoengine](http://docs.mongodb.org/ecosystem/tutorial/write-a-tumblelog-application-with-flask-mongoengine/)
 
 ---
 
@@ -281,7 +293,18 @@ maybe a bit slower because of the mounted volumes
 
 ![pycharm mount](/home/ah/projects/pastelike/presentation/slow_sync.png)
 
-Project files cannot be watched (are they under network mount?)api.vfs.impl.local.FileWatcher - Project files cannot be watched (are they under network mount?)
+# Presenter Notes
+    DEMO TIME
+    start service: docker-compose up rproxy web hub firefox
+    direct access: http://localhost:5000/
+    through nginx: http://learn.compose.com/
+    run tests: docker-compose run test
+    take a look at the makefile target
+    run pycharm: docker-compose run pycharm
+    access selenium grid console http://hub:4444/grid/console
+    scale firefox: docker-compose scale firefox=4
+    access selenium grid console again
+    
 
 ---
 
