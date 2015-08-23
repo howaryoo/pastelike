@@ -50,6 +50,8 @@ test:
   dockerfile: DockerfileTest.docker
   volumes:
     - .:/code
+  environment:
+    - REDIS_HOST=redis
   entrypoint: ["make"]
   command: ["test"]
   links:
@@ -62,10 +64,13 @@ test:
 pycharm:
   build: .
   dockerfile: DockerfileDeveloper.docker
+  working_dir: /home/developer/projects/pastelike 
   tty: true
   entrypoint: ["/home/developer/bin/pycharm.sh"]
+  command: ["/home/developer/projects/pastelike"]
   environment:
-    DISPLAY:
+    - DISPLAY
+    - REDIS_HOST=redis
   volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
     - ~:/home/developer

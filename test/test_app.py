@@ -1,16 +1,4 @@
-import pytest
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-
-@pytest.fixture
-def web_driver(request):
-    driver = webdriver.Remote(
-        command_executor='http://hub:4444/wd/hub',
-        desired_capabilities=DesiredCapabilities.FIREFOX)
-
-    request.addfinalizer(driver.quit)
-    return driver
+from flask import url_for
 
 
 def test_landslide_website_title(web_driver):
@@ -23,6 +11,10 @@ def test_pytest_website_title(web_driver):
     assert 'helps you' in web_driver.title
 
 
-def _test_local_app_title(web_driver):
-    web_driver.get('http://web:5000')
-    assert 'helps you' in web_driver.title
+def test_local_app_title(test_client):
+    test_client.get(url_for("hello"))
+    from app import redis as main_redis
+    hits_prev = int(main_redis.get('hits'))
+    test_client.get(url_for("hello"))
+    hits = int(main_redis.get('hits'))
+    assert hits - hits_prev == 1, "Number of hits not incremented"
