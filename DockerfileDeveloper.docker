@@ -17,8 +17,9 @@ RUN apt-get update && \
         libxext-dev \
         libxrender-dev \
         libxtst-dev \
-        xvfb
-
+        openjdk-7-jre \
+        xvfb \
+        zenity
 
 RUN mkdir -p /home/developer && \
     echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \

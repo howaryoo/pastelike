@@ -73,6 +73,7 @@ pycharm:
     - REDIS_HOST=redis
   volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
+    - /etc/localtime:/etc/localtime:ro
     - ~:/home/developer
   links:
     - redis
